@@ -1,0 +1,27 @@
+version: "3"
+
+networks: 
+  default:
+    driver: bridge
+
+services:
+  gstreamer-rtsp-srt:
+    container_name: gstreamer-rtsp-srt
+    hostname: gstreamer-rtsp-srt
+    build: .
+    image: gstreamer-rtsp-srt
+    restart: always
+    environment:
+      RTSP_URL: ${RTSP_URL}
+      #RTSP_USER_ID: ${RTSP_USER_ID}
+      #RTSP_USER_PW: ${RTSP_USER_PW}
+      SRT_PORT: 7001
+      #SRT_PASSPHRASE: secret
+      #SRT_KEY_LENGTH: 32
+    ports:
+      - 7001:7001/udp
+    networks:
+      - default
+    labels:
+      - "traefik.enable=false"
+
